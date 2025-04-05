@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/easyrent/static/js/main.f32341c1.js",
+    "index.html": "/easyrent/index.html",
+    "main.f32341c1.js.map": "/easyrent/static/js/main.f32341c1.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.f32341c1.js"
+  ]
+}
