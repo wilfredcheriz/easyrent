@@ -7,34 +7,24 @@ import AdminDashboard from './dashboards/AdminDashboard';
 import TenantDashboard from './dashboards/TenantDashboard';
 import AgentDashboard from './dashboards/AgentDashboard';
 import LandlordDashboard from './dashboards/LandlordDashboard';
-
-import LandingPage from './pages/LandingPage';  // Import LandingPage
+import LandingPage from './pages/LandingPage'; // even if unused
 
 const App = () => {
   const location = useLocation();
 
   return (
-    <div>
-      {/* Display Navbar on all pages */}
+    <>
       <Navbar />
-      
       <Routes>
-        {/* Set the HomePage as the default route */}
         <Route path="/" element={<HomePage />} />
-        
-        {/* Routes for dashboards */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/tenant" element={<TenantDashboard />} />
         <Route path="/agent" element={<AgentDashboard />} />
         <Route path="/landlord" element={<LandlordDashboard />} />
-        
-        {/* Other routes */}
         <Route path="/home" element={<HomePage />} />
       </Routes>
-
-      {/* Only render Footer if the current path is not the home page */}
       {location.pathname !== '/' && <Footer />}
-    </div>
+    </>
   );
 };
 
