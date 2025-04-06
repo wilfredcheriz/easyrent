@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
 const HeroSection = () => {
   const navigate = useNavigate();
 
@@ -16,6 +17,9 @@ const HeroSection = () => {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         py: 8,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <Container maxWidth="md" align="center">
@@ -23,21 +27,41 @@ const HeroSection = () => {
           variant="h3"
           gutterBottom
           sx={{
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: { xs: '2rem', sm: '3rem' },
+            mb: 3,
             animation: 'colorChange 3s infinite alternate',
-            '@keyframes colorChange': {
-              '0%': { color: 'black' },
-              '100%': { color: 'turquoise' },
-            },
           }}
         >
           Welcome to EasyRent
         </Typography>
-        <Typography variant="h6" paragraph>
-          Connecting tenants, agents, and landlords with ease.
+        <Typography
+          variant="h6"
+          paragraph
+          sx={{
+            color: 'white',
+            fontSize: { xs: '1rem', sm: '1.2rem' },
+            marginBottom: 3,
+            maxWidth: 600,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+        >
+          Connecting tenants, agents, and landlords with ease. Discover your perfect property or find a trusted tenant today.
         </Typography>
         <Button
           variant="contained"
-          sx={{ backgroundColor: '#16a085' }}
+          sx={{
+            backgroundColor: '#16a085',
+            padding: '12px 24px',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            '&:hover': {
+              backgroundColor: '#1abc9c',
+            },
+            borderRadius: 2,
+          }}
           onClick={handleGetStarted} // ✅ This goes to /home
         >
           Get Started

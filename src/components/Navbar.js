@@ -29,18 +29,8 @@ const Navbar = () => {
   return (
     <AppBar position="static" sx={{ backgroundColor: turquoise }}>
       <Toolbar>
-        {/* Logo and Site Title */}
+        {/* Site Title Only */}
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-          <Box
-            component="img"
-            src="/logo.png" // Replace with your logo path
-            alt="EASYRENT Logo"
-            sx={{
-              height: 40,
-              width: 40,
-              marginRight: 1,
-            }}
-          />
           <Typography variant="h6" component="div" sx={{ color: black }}>
             EASYRENT
           </Typography>
@@ -49,10 +39,10 @@ const Navbar = () => {
         {/* Desktop Buttons */}
         <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           {[
+            { path: '/home', label: 'Home' },
             { path: '/admin', label: 'Admin' },
             { path: '/tenant', label: 'Tenant' },
             { path: '/agent', label: 'Agent' },
-            { path: '/home', label: 'Home' },
             { path: '/landlord', label: 'Landlord' },
           ].map((item, index) => (
             <Button
@@ -106,9 +96,9 @@ const Navbar = () => {
       >
         <List>
           {[
+            { path: '/home', label: 'Home' },
             { path: '/admin', label: 'Admin' },
             { path: '/tenant', label: 'Tenant' },
-            { path: '/home', label: 'Home' },
             { path: '/agent', label: 'Agent' },
             { path: '/landlord', label: 'Landlord' },
           ].map((item, index) => (
