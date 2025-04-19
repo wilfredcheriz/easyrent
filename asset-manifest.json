@@ -1,11 +1,10 @@
 {
   "files": {
-    "main.js": "/easyrent/static/js/main.abc3c935.js",
-    "static/media/LandingPage": "/easyrent/static/media/LandingPage.5ea59b567aada626eb32",
+    "main.js": "/easyrent/static/js/main.8bb83701.js",
     "index.html": "/easyrent/index.html",
-    "main.abc3c935.js.map": "/easyrent/static/js/main.abc3c935.js.map"
+    "main.8bb83701.js.map": "/easyrent/static/js/main.8bb83701.js.map"
   },
   "entrypoints": [
-    "static/js/main.abc3c935.js"
+    "static/js/main.8bb83701.js"
   ]
 }
