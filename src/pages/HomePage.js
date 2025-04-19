@@ -1,19 +1,70 @@
 import React from 'react';
-import HeroSection from '../components/HeroSection'; // Import HeroSection
+import HeroSection from '../components/HeroSection';
 import {
-  Box, Typography, Button, TextField, Grid, Card, CardContent,
-  CardMedia, FormControl, InputLabel, Select, MenuItem, InputAdornment, Container
+  Box,
+  Typography,
+  Button,
+  TextField,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  InputAdornment,
+  Container,
+  IconButton,
+  Rating
 } from '@mui/material';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 const Home = () => {
   const turquoise = '#1abc9c';
   const black = '#000000';
   const white = '#ffffff';
 
+  // Featured listings with ratings
+  const featuredListings = [
+    {
+      title: 'Bedsitter - Ruaka-Nairobi',
+      budget: 'Ksh 7,500/month',
+      type: 'Bedsitter',
+      contact: '0712 345 678 (Agent Mary)',
+      img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1916&auto=format&fit=crop&ixlib=rb-4.0.3',
+      rating: 4.2
+    },
+    {
+      title: 'Bedsitter - Nyali-Mombasa',
+      budget: 'Ksh 9,000/month',
+      type: 'Bedsitter',
+      contact: '0700 123 456 (Agent John)',
+      img: 'https://images.unsplash.com/photo-1651805878384-a24daf76899f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3',
+      rating: 3.8
+    },
+    {
+      title: 'Single Room - Ngong Road, Nairobi',
+      budget: 'Ksh 5,000/month',
+      type: 'Single Room',
+      contact: '0789 654 321 (Agent David)',
+      img: 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3',
+      rating: 4.7
+    },
+    {
+      title: 'Airbnb - Ngara, Nairobi',
+      budget: 'Ksh 20,000/night',
+      type: 'Airbnb',
+      contact: '0734 567 890 (Agent Lucy)',
+      img: 'https://images.unsplash.com/photo-1722942722874-739209c3ad20?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3',
+      rating: 4.9
+    }
+  ];
+
   return (
     <Box sx={{ backgroundColor: white }}>
-      {/* Hero Section (imported here) */}
-      <HeroSection />  {/* This will render the Hero section */}
+      {/* Hero Section */}
+      <HeroSection />
 
       {/* Introduction Section */}
       <Box
@@ -37,7 +88,7 @@ const Home = () => {
               color: turquoise,
             }}
           >
-            
+            {/* Optional Heading */}
           </Typography>
           <Typography
             variant="body1"
@@ -61,9 +112,7 @@ const Home = () => {
                 fontWeight: 'bold',
                 textTransform: 'none',
                 borderRadius: 2,
-                '&:hover': {
-                  backgroundColor: '#16a085',
-                },
+                '&:hover': { backgroundColor: '#16a085' }
               }}
             >
               Join EasyRent Now
@@ -72,14 +121,11 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* Hero Section */}
+      {/* Search Section */}
       <Box
         sx={{
           position: 'relative',
-          background: 'white', // Changed from white to a gradient
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          color: turquoise,
+          background: 'white',
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
@@ -112,58 +158,30 @@ const Home = () => {
         </Typography>
 
         {/* Search Bar */}
-        <Box
-          sx={{
-            marginTop: 3,
-            display: 'flex',
-            justifyContent: 'center',
-            flexDirection: { xs: 'column', sm: 'row' },
-            alignItems: 'center',
-            gap: 2,
-            padding: { xs: '0 20px', sm: '0 50px' },
-          }}
-        >
+        <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', gap: 2, p: { xs: '0 20px', sm: '0 50px' } }}>
           <Box sx={{ width: { xs: '80%', sm: '25%' } }}>
             <TextField label="Location" variant="outlined" fullWidth />
           </Box>
-
           <Box sx={{ width: { xs: '80%', sm: '25%' } }}>
             <FormControl fullWidth>
               <InputLabel>Type</InputLabel>
-              <Select label="Type" defaultValue="">
-                <MenuItem value="Bedsitter">Bedsitter</MenuItem>
-                <MenuItem value="One Bedroom">One Bedroom</MenuItem>
-                <MenuItem value="Two Bedroom">Two Bedroom</MenuItem>
-                <MenuItem value="Apartment">Apartment</MenuItem>
-              </Select>
+              <Select label="Type" defaultValue="">{
+                ['Bedsitter','One Bedroom','Two Bedroom','Apartment'].map(type => (
+                  <MenuItem key={type} value={type}>{type}</MenuItem>
+                ))
+              }</Select>
             </FormControl>
           </Box>
-
           <Box sx={{ width: { xs: '80%', sm: '25%' } }}>
             <TextField
               label="Budget"
               variant="outlined"
               fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    Ksh
-                  </InputAdornment>
-                ),
-              }}
+              InputProps={{ startAdornment: <InputAdornment position="start">Ksh</InputAdornment> }}
             />
           </Box>
-
-          <Box sx={{ width: { xs: '80%', sm: 'auto' }, marginTop: { xs: 2, sm: 0 } }}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: turquoise,
-                color: white,
-                '&:hover': { backgroundColor: '#16a085' },
-                width: '100%',
-              }}
-            >
+          <Box sx={{ width: { xs: '80%', sm: 'auto' }, mt: { xs: 2, sm: 0 } }}>
+            <Button variant="contained" fullWidth sx={{ backgroundColor: turquoise, color: white, '&:hover': { backgroundColor: '#16a085' } }}>
               Search
             </Button>
           </Box>
@@ -171,86 +189,41 @@ const Home = () => {
       </Box>
 
       {/* Featured Listings */}
-      <Box
-        sx={{
-          padding: 4,
-          backgroundColor: white,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <Box sx={{ p: 4, backgroundColor: white, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Box sx={{ maxWidth: '1200px', width: '100%' }}>
-          <Typography
-            variant="h4"
-            align="center"
-            sx={{
-              fontWeight: 'bold',
-              marginBottom: 4,
-              color: black,
-              fontSize: { xs: '1.5rem', sm: '2rem' },
-            }}
-          >
+          <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 4, color: black, fontSize: { xs: '1.5rem', sm: '2rem' } }}>
             Featured Listings
           </Typography>
 
           <Grid container spacing={4} justifyContent="center">
-            {[
-              {
-                title: "Bedsitter - Ruaka-Nairobi",
-                budget: "Ksh 7,500/month",
-                type: "Bedsitter",
-                contact: "0712 345 678 (Agent Mary)",
-                img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1916&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              },
-              {
-                title: "Bedsitter - Nyali-Mombasa",
-                budget: "Ksh 9,000/month",
-                type: "Bedsitter",
-                contact: "0700 123 456 (Agent John)",
-                img: "https://images.unsplash.com/photo-1651805878384-a24daf76899f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              },
-              {
-                title: "Single Room - Ngong Road, Nairobi",
-                budget: "Ksh 5,000/month",
-                type: "Single Room",
-                contact: "0789 654 321 (Agent David)",
-                img: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              },
-              {
-                title: "Airbnb - Ngara, Nairobi",
-                budget: "Ksh 20,000/night",
-                type: "Airbnb",
-                contact: "0734 567 890 (Agent Lucy)",
-                img: "https://images.unsplash.com/photo-1722942722874-739209c3ad20?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              },
-            ].map((listing, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={listing.img}
-                    alt={listing.title}
-                  />
+            {featuredListings.map((listing, idx) => (
+              <Grid item xs={12} sm={6} md={4} key={idx}>
+                <Card sx={{ borderRadius: 3, boxShadow: 3, position: 'relative' }}>
+                  {/* Save Icon */}
+                  <IconButton sx={{ position: 'absolute', top: 8, right: 8, backgroundColor: white, '&:hover': { backgroundColor: '#f0f0f0' } }} aria-label="save property">
+                    <BookmarkBorderIcon sx={{ color: turquoise }} />
+                  </IconButton>
+
+                  <CardMedia component="img" height="200" image={listing.img} alt={listing.title} />
                   <CardContent>
                     <Typography gutterBottom variant="h6" component="div" sx={{ color: black }}>
                       {listing.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Budget: {listing.budget}
-                      <br />
-                      Type: {listing.type}
-                      <br />
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      Budget: {listing.budget}<br />
+                      Type: {listing.type}<br />
                       Contact: {listing.contact}
                     </Typography>
+                    {/* Rating */}
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Rating value={listing.rating} precision={0.1} readOnly size="small" />
+                      <Typography variant="body2" sx={{ ml: 0.5, color: black }}>
+                        {listing.rating}
+                      </Typography>
+                    </Box>
                   </CardContent>
-                  <Box sx={{ padding: 2 }}>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      sx={{ backgroundColor: turquoise, color: white, '&:hover': { backgroundColor: '#16a085' } }}
-                    >
+                  <Box sx={{ p: 2 }}>
+                    <Button variant="contained" fullWidth sx={{ backgroundColor: turquoise, color: white, '&:hover': { backgroundColor: '#16a085' } }}>
                       Book Now
                     </Button>
                   </Box>
@@ -261,19 +234,12 @@ const Home = () => {
         </Box>
       </Box>
 
-      {/* Add Animation CSS */}
-      <style>
-        {`
-          @keyframes colorChange {
-            0% {
-              color: ${black};
-            }
-            100% {
-              color: ${turquoise};
-            }
-          }
-        `}
-      </style>
+      <style>{`
+        @keyframes colorChange {
+          0% { color: ${black}; }
+          100% { color: ${turquoise}; }
+        }
+      `}</style>
     </Box>
   );
 };

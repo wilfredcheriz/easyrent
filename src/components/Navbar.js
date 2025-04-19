@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -9,82 +10,72 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Box, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-
-  const handleMenuOpen = () => {
-    setOpen(true);
-  };
-
-  const handleMenuClose = () => {
-    setOpen(false);
-  };
-
   const turquoise = '#16a085';
   const white = '#ffffff';
   const black = '#000000';
 
+  const menuItems = [
+    { path: '/',       label: 'Home' },
+    { path: '/admin',      label: 'Admin' },
+    { path: '/tenant',     label: 'Tenant' },
+    { path: '/agent',      label: 'Agent' },
+    { path: '/landlord',   label: 'Landlord' },
+  ];
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: turquoise }}>
-      <Toolbar>
-        {/* Site Title Only */}
-        <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-          <Typography variant="h6" component="div" sx={{ color: black }}>
-            EASYRENT
-          </Typography>
-        </Box>
-
-        {/* Desktop Buttons */}
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          {[
-            { path: '/home', label: 'Home' },
-            { path: '/admin', label: 'Admin' },
-            { path: '/tenant', label: 'Tenant' },
-            { path: '/agent', label: 'Agent' },
-            { path: '/landlord', label: 'Landlord' },
-          ].map((item, index) => (
-            <Button
-              key={index}
+    <>
+      <AppBar position="static" sx={{ backgroundColor: turquoise }}>
+        <Toolbar>
+          {/* Site Title as link to “/” */}
+          <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+            <Typography
+              variant="h6"
               component={Link}
-              to={item.path}
-              sx={{
-                color: turquoise,
-                backgroundColor: white,
-                marginX: 1,
-                '&:hover': {
-                  backgroundColor: '#e0f7f4',
-                },
-              }}
-              variant="contained"
+              to="/"
+              sx={{ color: black, textDecoration: 'none' }}
             >
-              {item.label}
-            </Button>
-          ))}
-        </Box>
+              EASYRENT
+            </Typography>
+          </Box>
 
-        {/* Mobile Menu Icon */}
-        <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-          <IconButton
-            sx={{ color: white }}
-            edge="start"
-            onClick={handleMenuOpen}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Box>
-      </Toolbar>
+          {/* Desktop Buttons */}
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            {menuItems.map(({ path, label }, i) => (
+              <Button
+                key={i}
+                component={Link}
+                to={path}
+                variant="contained"
+                sx={{
+                  color: turquoise,
+                  backgroundColor: white,
+                  marginX: 1,
+                  '&:hover': { backgroundColor: '#e0f7f4' },
+                }}
+              >
+                {label}
+              </Button>
+            ))}
+          </Box>
+
+          {/* Mobile Hamburger */}
+          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            <IconButton onClick={() => setOpen(true)} sx={{ color: white }}>
+              <MenuIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
 
       {/* Mobile Drawer */}
       <Drawer
         anchor="left"
         open={open}
-        onClose={handleMenuClose}
+        onClose={() => setOpen(false)}
         sx={{
-          width: '60%',
-          backgroundColor: turquoise,
-          color: white,
           '& .MuiDrawer-paper': {
             width: '60%',
             backgroundColor: turquoise,
@@ -95,34 +86,26 @@ const Navbar = () => {
         }}
       >
         <List>
-          {[
-            { path: '/home', label: 'Home' },
-            { path: '/admin', label: 'Admin' },
-            { path: '/tenant', label: 'Tenant' },
-            { path: '/agent', label: 'Agent' },
-            { path: '/landlord', label: 'Landlord' },
-          ].map((item, index) => (
+          {menuItems.map(({ path, label }, i) => (
             <ListItem
-              key={index}
-              button
-              onClick={handleMenuClose}
+              key={i}
               component={Link}
-              to={item.path}
+              to={path}
+              onClick={() => setOpen(false)}
               sx={{
                 color: white,
                 fontSize: '1.5rem',
                 padding: '15px 20px',
-                '&:hover': {
-                  backgroundColor: '#e0f7f4',
-                },
+                '&:hover': { backgroundColor: '#e0f7f4' },
+                textDecoration: 'none',
               }}
             >
-              <ListItemText primary={item.label} />
+              <ListItemText primary={label} />
             </ListItem>
           ))}
         </List>
       </Drawer>
-    </AppBar>
+    </>
   );
 };
 

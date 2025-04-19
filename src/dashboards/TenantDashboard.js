@@ -15,7 +15,11 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Box,
+  IconButton,
+  Rating
 } from '@mui/material';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 const darkTurquoise = '#16a085'; // Dark Turquoise
 const black = '#000000';
@@ -30,13 +34,38 @@ const TenantDashboard = () => {
     console.log(`Selected Bedroom Type: ${bedroomType}`);
   };
 
+  const recommended = [
+    {
+      title: 'Modern Apartment in Kilimani-Nairobi',
+      price: 'KES 150,000/month',
+      image:
+        'https://plus.unsplash.com/premium_photo-1661876281402-7b534f9598b3?q=80&w=2132&auto=format&fit=crop&ixlib=rb-4.0.3',
+      rating: 4.5
+    },
+    {
+      title: 'Cozy House in Bamburi-Mombasa',
+      price: 'KES 120,000/month',
+      image:
+        'https://images.unsplash.com/photo-1618808324384-4c395ba38a17?q=80&w=2089&auto=format&fit=crop&ixlib=rb-4.0.3',
+      rating: 4.0
+    },
+    {
+      title: 'Luxury Condo in Bondo-Kisumu',
+      price: 'KES 200,000/month',
+      image:
+        'https://images.unsplash.com/photo-1679105796545-6a9f6104b8c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3',
+      rating: 5.0
+    }
+  ];
+
   return (
     <Container sx={{ mt: 4 }}>
       <Typography variant="h4" gutterBottom sx={{ color: black }}>
         Tenant Dashboard
       </Typography>
       <Typography variant="body1" gutterBottom sx={{ color: black }}>
-        Welcome! Here you can fill in your housing preferences, view recommended properties, and track your booking requests in Kenya.
+        Welcome! Here you can fill in your housing preferences, view recommended
+        properties, and track your booking requests in Kenya.
       </Typography>
 
       {/* Housing Preferences Form */}
@@ -86,7 +115,7 @@ const TenantDashboard = () => {
               color: white,
               '&:hover': {
                 backgroundColor: '#1abc9c',
-              }
+              },
             }}
           >
             Save Preferences
@@ -99,61 +128,56 @@ const TenantDashboard = () => {
         <Typography variant="h6" gutterBottom sx={{ color: darkTurquoise }}>
           Recommended Properties
         </Typography>
-        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-          {/* Property 1 */}
-          <Card sx={{ width: 300 }}>
-            <CardMedia
-              component="img"
-              height="200"
-              image="https://plus.unsplash.com/premium_photo-1661876281402-7b534f9598b3?q=80&w=2132&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Image from Unsplash
-              alt="Modern Apartment in Nairobi"
-            />
-            <CardContent>
-              <Typography variant="h6" component="div" sx={{ color: black }}>
-                Modern Apartment in Kilimani-Nairobi
-              </Typography>
-              <Typography variant="body2" sx={{ color: black }}>
-                KES 150,000/month
-              </Typography>
-            </CardContent>
-          </Card>
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+          {recommended.map((prop, idx) => (
+            <Card key={idx} sx={{ width: 300, position: 'relative' }}>
+              {/* Save Icon */}
+              <IconButton
+                sx={{
+                  position: 'absolute',
+                  top: 8,
+                  right: 8,
+                  backgroundColor: white,
+                  '&:hover': { backgroundColor: '#f0f0f0' }
+                }}
+                aria-label="save property"
+              >
+                <BookmarkBorderIcon sx={{ color: darkTurquoise }} />
+              </IconButton>
 
-          {/* Property 2 */}
-          <Card sx={{ width: 300 }}>
-            <CardMedia
-              component="img"
-              height="200"
-              image="https://images.unsplash.com/photo-1618808324384-4c395ba38a17?q=80&w=2089&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Image from Unsplash
-              alt="Cozy House in Mombasa"
-            />
-            <CardContent>
-              <Typography variant="h6" component="div" sx={{ color: black }}>
-                Cozy House in Bamburi-Mombasa
-              </Typography>
-              <Typography variant="body2" sx={{ color: black }}>
-                KES 120,000/month
-              </Typography>
-            </CardContent>
-          </Card>
+              <CardMedia
+                component="img"
+                height="200"
+                image={prop.image}
+                alt={prop.title}
+              />
+              <CardContent>
+                <Typography variant="h6" sx={{ color: black }}>
+                  {prop.title}
+                </Typography>
+                <Typography variant="body2" sx={{ color: black, mb: 1 }}>
+                  {prop.price}
+                </Typography>
 
-          {/* Property 3 */}
-          <Card sx={{ width: 300 }}>
-            <CardMedia
-              component="img"
-              height="200"
-              image="https://images.unsplash.com/photo-1679105796545-6a9f6104b8c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Image from Unsplash
-              alt="Luxury Condo in Kisumu"
-            />
-            <CardContent>
-              <Typography variant="h6" component="div" sx={{ color: black }}>
-                Luxury Condo in Bondo-Kisumu
-              </Typography>
-              <Typography variant="body2" sx={{ color: black }}>
-                KES 200,000/month
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
+                {/* Rating */}
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Rating
+                    value={prop.rating}
+                    precision={0.5}
+                    readOnly
+                    size="small"
+                  />
+                  <Typography
+                    variant="body2"
+                    sx={{ color: black, ml: 0.5 }}
+                  >
+                    {prop.rating}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
       </Paper>
 
       {/* Booking Requests */}
