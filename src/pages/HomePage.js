@@ -315,7 +315,8 @@ const Home = () => {
             <Grid item xs={12} sm={3}>
               <Typography variant="h6" gutterBottom>Contact</Typography>
               <Typography variant="body2">Email: info@easyrent.co.ke</Typography>
-              <Typography variant="body2">Phone: +254 745 738 916</Typography>
+              <Typography variant="body2">Phone: +254 745 738 916/</Typography>
+              <Typography variant="body2">Phone: +254 711 488521</Typography> 
             </Grid>
           </Grid>
           <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.3)' }} />
