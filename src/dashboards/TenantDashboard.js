@@ -27,6 +27,8 @@ const white = '#ffffff';
 
 const TenantDashboard = () => {
   const [bedroomType, setBedroomType] = useState('');
+  const [feedback, setFeedback] = useState({ rating: 0, comment: '' });
+  const [feedbacks, setFeedbacks] = useState([]);
 
   const handlePreferencesSubmit = (e) => {
     e.preventDefault();
@@ -114,8 +116,8 @@ const TenantDashboard = () => {
               backgroundColor: darkTurquoise,
               color: white,
               '&:hover': {
-                backgroundColor: '#1abc9c',
-              },
+                backgroundColor: '#1abc9c'
+              }
             }}
           >
             Save Preferences
@@ -131,7 +133,6 @@ const TenantDashboard = () => {
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
           {recommended.map((prop, idx) => (
             <Card key={idx} sx={{ width: 300, position: 'relative' }}>
-              {/* Save Icon */}
               <IconButton
                 sx={{
                   position: 'absolute',
@@ -158,8 +159,6 @@ const TenantDashboard = () => {
                 <Typography variant="body2" sx={{ color: black, mb: 1 }}>
                   {prop.price}
                 </Typography>
-
-                {/* Rating */}
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Rating
                     value={prop.rating}
@@ -167,10 +166,7 @@ const TenantDashboard = () => {
                     readOnly
                     size="small"
                   />
-                  <Typography
-                    variant="body2"
-                    sx={{ color: black, ml: 0.5 }}
-                  >
+                  <Typography variant="body2" sx={{ color: black, ml: 0.5 }}>
                     {prop.rating}
                   </Typography>
                 </Box>
@@ -181,7 +177,7 @@ const TenantDashboard = () => {
       </Paper>
 
       {/* Booking Requests */}
-      <Paper sx={{ p: 3, mt: 3, mb: 4, backgroundColor: white }}>
+      <Paper sx={{ p: 3, mt: 3, backgroundColor: white }}>
         <Typography variant="h6" gutterBottom sx={{ color: darkTurquoise }}>
           Booking Requests
         </Typography>
@@ -203,6 +199,82 @@ const TenantDashboard = () => {
             />
           </ListItem>
         </List>
+      </Paper>
+
+      {/* Feedback Section */}
+      <Paper sx={{ p: 3, mt: 3, mb: 4, backgroundColor: white }}>
+        <Typography variant="h6" gutterBottom sx={{ color: darkTurquoise }}>
+          Feedback
+        </Typography>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (feedback.comment && feedback.rating) {
+              setFeedbacks([...feedbacks, feedback]);
+              setFeedback({ rating: 0, comment: '' });
+            }
+          }}
+        >
+          <Box sx={{ mb: 2 }}>
+            <Typography sx={{ color: black }}>Rate Your Experience:</Typography>
+            <Rating
+              value={feedback.rating}
+              onChange={(e, newValue) =>
+                setFeedback({ ...feedback, rating: newValue })
+              }
+              precision={0.5}
+              sx={{ color: darkTurquoise }}
+            />
+          </Box>
+          <TextField
+            fullWidth
+            multiline
+            rows={3}
+            label="Your feedback"
+            variant="outlined"
+            value={feedback.comment}
+            onChange={(e) =>
+              setFeedback({ ...feedback, comment: e.target.value })
+            }
+            sx={{ mb: 2, input: { color: black }, textarea: { color: black } }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              backgroundColor: darkTurquoise,
+              color: white,
+              '&:hover': { backgroundColor: '#1abc9c' }
+            }}
+          >
+            Submit Feedback
+          </Button>
+        </form>
+
+        {/* Display Feedbacks */}
+        {feedbacks.length > 0 && (
+          <Box sx={{ mt: 3 }}>
+            <Typography variant="subtitle1" sx={{ color: darkTurquoise }}>
+              Previous Feedback
+            </Typography>
+            {feedbacks.map((fb, index) => (
+              <Box
+                key={index}
+                sx={{
+                  mb: 2,
+                  p: 2,
+                  border: '1px solid #ccc',
+                  borderRadius: 1
+                }}
+              >
+                <Rating value={fb.rating} readOnly size="small" />
+                <Typography sx={{ mt: 1, color: black }}>
+                  {fb.comment}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
       </Paper>
     </Container>
   );
