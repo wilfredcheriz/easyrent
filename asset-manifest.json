@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/easyrent/static/js/main.78285740.js",
+    "main.js": "/easyrent/static/js/main.e3447ac1.js",
     "index.html": "/easyrent/index.html",
-    "main.78285740.js.map": "/easyrent/static/js/main.78285740.js.map"
+    "main.e3447ac1.js.map": "/easyrent/static/js/main.e3447ac1.js.map"
   },
   "entrypoints": [
-    "static/js/main.78285740.js"
+    "static/js/main.e3447ac1.js"
   ]
 }
